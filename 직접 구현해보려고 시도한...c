@@ -2,14 +2,14 @@
 
 #define MAX_TERMS 101
 
-// Èñ¼Ò Çà·ÄÀº Çà, ¿µ, °ª¸¸ ¹è¿­¿¡ ÀúÀåÇØÁÖ¸é µÈ´Ù.
+// í¬ì†Œ í–‰ë ¬ì€ í–‰, ì˜, ê°’ë§Œ ë°°ì—´ì— ì €ì¥í•´ì£¼ë©´ ëœë‹¤.
 typedef struct {
 	int row;
 	int col;
 	int value;
 } element;
 
-// Çà·ÄÀÌ ¸îÇà ¸î¿­ ¸î°³ÀÇ Ç×À» °¡Áö´ÂÁö ÀúÀå.
+// í–‰ë ¬ì´ ëª‡í–‰ ëª‡ì—´ ëª‡ê°œì˜ í•­ì„ ê°€ì§€ëŠ”ì§€ ì €ì¥.
 typedef struct {
 	element data[MAX_TERMS];
 	int rows;
@@ -18,30 +18,30 @@ typedef struct {
 } matrix;
 
 
-// Çà·Ä »ı¼º
+// í–‰ë ¬ ìƒì„±
 matrix matrix_maker()
 {
 	matrix a;
 
-	printf("Çà °³¼ö ÀÔ·Â :");
+	printf("í–‰ ê°œìˆ˜ ì…ë ¥ :");
 	scanf("%d", &a.rows);
-	printf("¿­ °³¼ö ÀÔ·Â :");
+	printf("ì—´ ê°œìˆ˜ ì…ë ¥ :");
 	scanf("%d", &a.cols);
-	printf("°ªÀ» °¡Áö´Â °³¼ö ÀÔ·Â :");
+	printf("ê°’ì„ ê°€ì§€ëŠ” ê°œìˆ˜ ì…ë ¥ :");
 	scanf("%d", &a.terms);
 	printf("\n\n");
 
 	for (int i = 0; i < a.terms; i++)
 	{
-		printf("%d ¹øÂ° µ¥ÀÌÅÍ°¡ À§Ä¡ÇÑ Çà ÀÔ·Â :", i + 1);
+		printf("%d ë²ˆì§¸ ë°ì´í„°ê°€ ìœ„ì¹˜í•œ í–‰ ì…ë ¥ :", i + 1);
 		scanf("%d", &a.data[i].row);
 		if (a.data[i].row > 2)
 			a.data[i].row = a.data[i].row % a.rows;
-		printf("%d ¹øÂ° µ¥ÀÌÅÍ°¡ À§Ä¡ÇÑ ¿­ ÀÔ·Â :", i + 1);
+		printf("%d ë²ˆì§¸ ë°ì´í„°ê°€ ìœ„ì¹˜í•œ ì—´ ì…ë ¥ :", i + 1);
 		scanf("%d", &a.data[i].col);
 		if (a.data[i].col > 2)
 			a.data[i].col = a.data[i].col % a.cols;
-		printf("%d ¹øÂ° µ¥ÀÌÅÍÀÇ °ª ÀÔ·Â :", i + 1);
+		printf("%d ë²ˆì§¸ ë°ì´í„°ì˜ ê°’ ì…ë ¥ :", i + 1);
 		scanf("%d", &a.data[i].value);
 		printf("\n");
 	}
@@ -50,20 +50,20 @@ matrix matrix_maker()
 }
 
 
-// Çà·Ä ÀüÄ¡
-matrix matrix_transpose(matrix a) // ±âÁ¸ Èñ¼ÒÇà·ÄÀ» °¡Á®¿È
+// í–‰ë ¬ ì „ì¹˜
+matrix matrix_transpose(matrix a) // ê¸°ì¡´ í¬ì†Œí–‰ë ¬ì„ ê°€ì ¸ì˜´
 {
-	matrix b; // ÀüÄ¡Çà·ÄÀÌ ÀúÀåµÉ Çà·Ä ¼±¾ğ
+	matrix b; // ì „ì¹˜í–‰ë ¬ì´ ì €ì¥ë  í–‰ë ¬ ì„ ì–¸
 	b.rows = a.cols;
 	b.cols = a.rows;
 	b.terms = a.terms;
-	// ÀüÄ¡Çà·ÄÀÇ ¿­°ú ÇàÀÇ °³¼ö´Â ±âÁ¸ Çà·Ä°ú ¹Ù²î°Ô µÊ. ÀÌ¶§ Ç×ÀÇ °³¼ö´Â µ¿ÀÏ.
+	// ì „ì¹˜í–‰ë ¬ì˜ ì—´ê³¼ í–‰ì˜ ê°œìˆ˜ëŠ” ê¸°ì¡´ í–‰ë ¬ê³¼ ë°”ë€Œê²Œ ë¨. ì´ë•Œ í•­ì˜ ê°œìˆ˜ëŠ” ë™ì¼.
 
 	int index = 0;
 
 	if (a.terms > 0)
 	{
-		for (int i = 0; i < a.cols; i++)	// Ã¹ ¹øÂ° ¿­ºÎÅÍ aÀÇ ¿­°³¼ö ±îÁö ¿­º°·Î °¡Á®¿È(ÀüÄ¡Çà·Ä¿¡ ÀÇÇØ Çàº¸´Ù ¿­ÀÌ ¿ì¼±¼øÀ§)
+		for (int i = 0; i < a.cols; i++)	// ì²« ë²ˆì§¸ ì—´ë¶€í„° aì˜ ì—´ê°œìˆ˜ ê¹Œì§€ ì—´ë³„ë¡œ ê°€ì ¸ì˜´(ì „ì¹˜í–‰ë ¬ì— ì˜í•´ í–‰ë³´ë‹¤ ì—´ì´ ìš°ì„ ìˆœìœ„)
 		{
 			for (int j = 0; j < a.terms; j++)
 			{
@@ -81,7 +81,7 @@ matrix matrix_transpose(matrix a) // ±âÁ¸ Èñ¼ÒÇà·ÄÀ» °¡Á®¿È
 	return b;
 }
 
-// Çà·Ä Ãâ·Â(ÀÓ½Ã)
+// í–‰ë ¬ ì¶œë ¥(ì„ì‹œ)
 void matrix_printtemp(element x[])
 {
 	printf("====================\n");
@@ -102,7 +102,7 @@ for (int i = 0; i < x.rows; i++)
 printf("  ");
 for (int j = 0; j < x.cols; j++)
 {
-if (x.data[index].row == i && x.data[index].col == j) // ¹®Á¦ Á¸Àç: row°¡ col º¸´Ù ³ôÀ» ¶§ Ã³À½ ÀÔ·ÂÇÑ Çà·ÄÀÌ Á¦´ë·Î ÇÁ¸°Æ®µÇÁö ¾ÊÀ½!
+if (x.data[index].row == i && x.data[index].col == j) // ë¬¸ì œ ì¡´ì¬: rowê°€ col ë³´ë‹¤ ë†’ì„ ë•Œ ì²˜ìŒ ì…ë ¥í•œ í–‰ë ¬ì´ ì œëŒ€ë¡œ í”„ë¦°íŠ¸ë˜ì§€ ì•ŠìŒ!
 {
 printf("%d ", x.data[index].value);
 index++;
@@ -125,7 +125,7 @@ matrix matrix_multiply(matrix a, matrix b)
 	int sum_temp = 0;
 	int index = 0;
 
-	// °öÇÑ Çà·ÄÀÇ °á±£°ªÀº ¹«Á¶°Ç ¾Õ Çà·ÄÀÇ "Çà" µŞ Çà·ÄÀÇ "¿­"·Î ³ª¿Â´Ù.
+	// ê³±í•œ í–‰ë ¬ì˜ ê²°ê´ê°’ì€ ë¬´ì¡°ê±´ ì• í–‰ë ¬ì˜ "í–‰" ë’· í–‰ë ¬ì˜ "ì—´"ë¡œ ë‚˜ì˜¨ë‹¤.
 	c.rows = a.rows;
 	c.cols = b.cols;
 
@@ -159,7 +159,7 @@ matrix matrix_multiply(matrix a, matrix b)
 			k++;
 		}
 		sum_temp = 0;
-		while (j< a.rows && a1 == b.data[j].col) // ÀÌ ºÎºĞºÎÅÍÀÇ ¹İº¹¹®À» ¼öÁ¤ÇØ¾ß ÇÒ °ÍÀ¸·Î º¸ÀÓ
+		while (j< a.rows && a1 == b.data[j].col) // ì´ ë¶€ë¶„ë¶€í„°ì˜ ë°˜ë³µë¬¸ì„ ìˆ˜ì •í•´ì•¼ í•  ê²ƒìœ¼ë¡œ ë³´ì„
 		{
 			j++;
 		}
@@ -185,18 +185,18 @@ int main()
 {
 	matrix a;
 	a = matrix_maker();
-	printf("ÀÔ·ÂµÈ Çà·Ä\n");
+	printf("ì…ë ¥ëœ í–‰ë ¬\n");
 	matrix_print(a);
 
 	matrix transpose;
 	transpose = matrix_transpose(a);
-	printf("ÀüÄ¡µÈ Çà·Ä\n");
+	printf("ì „ì¹˜ëœ í–‰ë ¬\n");
 	matrix_print(transpose);
-	// ÀÌ ºÎºĞ ±îÁö Á¤»ó ÀÛµ¿
+	// ì´ ë¶€ë¶„ ê¹Œì§€ ì •ìƒ ì‘ë™
 	
 	matrix result;
 	result = matrix_multiply(a, transpose);
-	printf("°öÇØÁø Çà·Ä\n");
+	printf("ê³±í•´ì§„ í–‰ë ¬\n");
 	matrix_print(result);
 
 	return 0;
