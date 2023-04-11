@@ -3,7 +3,7 @@
 #define MAX_TERMS 101
 #define MAX_COL 101
 
-// Èñ¼Ò Çà·ÄÀº Çà, ¿µ, °ª¸¸ ¹è¿­¿¡ ÀúÀåÇØÁÖ¸é µÈ´Ù.
+// í¬ì†Œ í–‰ë ¬ì€ í–‰, ì˜, ê°’ë§Œ ë°°ì—´ì— ì €ì¥í•´ì£¼ë©´ ëœë‹¤.
 typedef struct {
 	int row;
 	int col;
@@ -13,77 +13,6 @@ typedef struct {
 element a[11] = { { 6, 6, 8 },{ 0, 0, 15 },{ 0, 3, 22 },{ 0, 5, -15 }, { 1, 1, 11 }, { 1, 2, 3 }, { 2, 3, -6 }, { 4, 0, 91 }, { 5, 2, 28 } };
 element b[11];
 element result[MAX_TERMS];
-
-/*// Çà·ÄÀÌ ¸îÇà ¸î¿­ ¸î°³ÀÇ Ç×À» °¡Áö´ÂÁö ÀúÀå.
-typedef struct {
-	element data[MAX_TERMS];
-	int rows;
-	int cols;
-	int terms; 
-} matrix; */
-
-/*
-// Çà·Ä »ı¼º
-matrix matrix_maker()
-{
-	matrix a;
-
-	printf("Çà °³¼ö ÀÔ·Â :");
-	scanf("%d", &a.rows);
-	printf("¿­ °³¼ö ÀÔ·Â :");
-	scanf("%d", &a.cols);
-	printf("°ªÀ» °¡Áö´Â °³¼ö ÀÔ·Â :");
-	scanf("%d", &a.terms);
-
-	for (int i = 0; i < a.terms; i++)
-	{
-		printf("%d ¹øÂ° µ¥ÀÌÅÍ°¡ À§Ä¡ÇÑ Çà ÀÔ·Â :", i + 1);
-		scanf("%d", &a.data[i].row);
-		if (a.data[i].row > 2)
-			a.data[i].row = a.data[i].row % a.rows;
-		printf("%d ¹øÂ° µ¥ÀÌÅÍ°¡ À§Ä¡ÇÑ ¿­ ÀÔ·Â :", i + 1);
-		scanf("%d", &a.data[i].col);
-		if (a.data[i].col > 2)
-			a.data[i].col = a.data[i].col % a.cols;
-		printf("%d ¹øÂ° µ¥ÀÌÅÍÀÇ °ª ÀÔ·Â :", i + 1);
-		scanf("%d", &a.data[i].value);
-	}
-
-	return a;
-}
-
-
-// Çà·Ä ÀüÄ¡
-matrix matrix_transpose(matrix a) // ±âÁ¸ Èñ¼ÒÇà·ÄÀ» °¡Á®¿È
-{
-	matrix b; // ÀüÄ¡Çà·ÄÀÌ ÀúÀåµÉ Çà·Ä ¼±¾ğ
-	b.rows = a.cols;
-	b.cols = a.rows;
-	b.terms = a.terms;
-	// ÀüÄ¡Çà·ÄÀÇ ¿­°ú ÇàÀÇ °³¼ö´Â ±âÁ¸ Çà·Ä°ú ¹Ù²î°Ô µÊ. ÀÌ¶§ Ç×ÀÇ °³¼ö´Â µ¿ÀÏ.
-	
-	int index = 0;
-
-	if (a.terms > 0)
-	{
-		for (int i = 0; i < a.cols; i++)	// Ã¹ ¹øÂ° ¿­ºÎÅÍ aÀÇ ¿­°³¼ö ±îÁö ¿­º°·Î °¡Á®¿È(ÀüÄ¡Çà·Ä¿¡ ÀÇÇØ Çàº¸´Ù ¿­ÀÌ ¿ì¼±¼øÀ§) 
-		{
-			for (int j = 0; j < a.terms; j++)
-			{
-				if (a.data[j].col == i)
-				{
-					b.data[index].row = a.data[j].col;
-					b.data[index].col = a.data[j].row;
-					b.data[index].value = a.data[j].value;
-					index++;
-				}
-			}
-		}
-	}
-
-	return b;
-}
-*/
 
 void fast_transpose(element a[], element b[])
 {
@@ -95,22 +24,22 @@ void fast_transpose(element a[], element b[])
 	b[0].value = numTerms;
 	if (numTerms > 0)
 	{
-		for (i = 0; i < numCols; i++) // ¿­ °³¼ö ¸¸Å­ ÃÊ±âÈ­
+		for (i = 0; i < numCols; i++) // ì—´ ê°œìˆ˜ ë§Œí¼ ì´ˆê¸°í™”
 		{
 			rowTerms[i] = 0;
 			printf("rowTerms[%d] = %d\n", i, rowTerms[i]);
 		}
 		printf("\n");
 
-//		printf("rowTerms[a[0].col] = rowTerms[%d] %d\n", a[0].col, rowTerms[a[0].col]); // ¾²·¹±â°ª ³ª¿È 6¿­ÀÇ °ªÀº ¸Ç ¸¶Áö¸·ÀÌ¶ó¼­ ±»ÀÌ ÀúÀåÇÏÁö ¾Ê´Â °ÍÀ¸·Î º¸ÀÓ.
+//		printf("rowTerms[a[0].col] = rowTerms[%d] %d\n", a[0].col, rowTerms[a[0].col]); // ì“°ë ˆê¸°ê°’ ë‚˜ì˜´ 6ì—´ì˜ ê°’ì€ ë§¨ ë§ˆì§€ë§‰ì´ë¼ì„œ êµ³ì´ ì €ì¥í•˜ì§€ ì•ŠëŠ” ê²ƒìœ¼ë¡œ ë³´ì„.
 		for (i = 1; i <= numTerms; i++)
 		{
-			rowTerms[a[i].col]++; // °¢ ¿­ÀÇ ¼ıÀÚ (0~6±îÁö) ¸î °³ ÀÖ´ÂÁö ÀúÀå
+			rowTerms[a[i].col]++; // ê° ì—´ì˜ ìˆ«ì (0~6ê¹Œì§€) ëª‡ ê°œ ìˆëŠ”ì§€ ì €ì¥
 			printf("rowTerms[a[%d].col] = rowTerms[%d] %d\n", i, a[i].col, rowTerms[a[i].col]);
 		}
 		printf("\n");
 
-		startingPos[0] = 1; // ÀÚ±â ¼ıÀÚ°¡ ¸î ¹øÂ° ¿­ºÎÅÍ ³ª¿À´ÂÁö Ã¼Å©
+		startingPos[0] = 1; // ìê¸° ìˆ«ìê°€ ëª‡ ë²ˆì§¸ ì—´ë¶€í„° ë‚˜ì˜¤ëŠ”ì§€ ì²´í¬
 		printf("startingPos[0] = %d\n", startingPos[0]);
 
 		for (i = 1; i < numCols; i++)
@@ -123,7 +52,7 @@ void fast_transpose(element a[], element b[])
 		for (i = 1; i <= numTerms; i++)
 		{
 			j = startingPos[a[i].col]++;
-			printf("j = %d = startingPos[a[%d].col]++ = startingPos[%d]++\n", j, i, a[i].col); // ¿©±â¼­ jÀÇ °ªÀº ÀüÄ¡µÈ Çà·ÄÀÇ ¸î ¹øÂ° À§Ä¡¿¡ µé¾î°¡´ÂÁö¸¦ ¾Ë·ÁÁÜ
+			printf("j = %d = startingPos[a[%d].col]++ = startingPos[%d]++\n", j, i, a[i].col); // ì—¬ê¸°ì„œ jì˜ ê°’ì€ ì „ì¹˜ëœ í–‰ë ¬ì˜ ëª‡ ë²ˆì§¸ ìœ„ì¹˜ì— ë“¤ì–´ê°€ëŠ”ì§€ë¥¼ ì•Œë ¤ì¤Œ
 			b[j].row = a[i].col;
 			b[j].col = a[i].row;
 			b[j].value = a[i].value;
@@ -143,7 +72,7 @@ int COMPARE(int a, int b)
 
 void storeSum(element d[], int *totalD, int row, int column, int *sum)
 {
-	if (*sum) // sumÀÌ Á¸ÀçÇÏ¸é °ªÀ» ÀúÀå
+	if (*sum) // sumì´ ì¡´ì¬í•˜ë©´ ê°’ì„ ì €ì¥
 		if (*totalD < MAX_TERMS)
 		{
 			d[++*totalD].row = row;
@@ -153,7 +82,7 @@ void storeSum(element d[], int *totalD, int row, int column, int *sum)
 		}
 		else
 		{
-			printf("Ãâ·Â °³¼ö º¸´Ù ¸¹À½");
+			printf("ì¶œë ¥ ê°œìˆ˜ ë³´ë‹¤ ë§ìŒ");
 			exit(1);
 		}
 }
@@ -163,44 +92,44 @@ void mmult(element a[], element b[], element d[])
 	int i, j, column, totalD = 0;
 	int rowsA = a[0].row, colsA = a[0].col, totalA = a[0].value;
 	int colsB = b[0].col, totalB = b[0].value;
-	int rowBegin = 1, row = a[1].row, sum = 0; // AÀÇ ÇöÀç ÇàºÎÅÍ ½ÃÀÛ
+	int rowBegin = 1, row = a[1].row, sum = 0; // Aì˜ í˜„ì¬ í–‰ë¶€í„° ì‹œì‘
 	element newB[MAX_TERMS];
-	if (colsA != b[0].row) // AÀÇ ¿­¼ö¿Í BÀÇ Çà¼ö°¡ ´Ù¸¦ ¶§ Çà·Ä °ö¼À Á¶°Ç ºÒ¸¸Á·
+	if (colsA != b[0].row) // Aì˜ ì—´ìˆ˜ì™€ Bì˜ í–‰ìˆ˜ê°€ ë‹¤ë¥¼ ë•Œ í–‰ë ¬ ê³±ì…ˆ ì¡°ê±´ ë¶ˆë§Œì¡±
 	{
-		printf("°è»ê ºÒ°¡´É"); // ÀüÄ¡Çà·Ä°úÀÇ °ö¼ÀÀÌ±â¿¡ Àı´ë·Î ¿À·ù³¯ °¡´É¼ºÀÌ ¾ø´Ù°í º½
+		printf("ê³„ì‚° ë¶ˆê°€ëŠ¥"); // ì „ì¹˜í–‰ë ¬ê³¼ì˜ ê³±ì…ˆì´ê¸°ì— ì ˆëŒ€ë¡œ ì˜¤ë¥˜ë‚  ê°€ëŠ¥ì„±ì´ ì—†ë‹¤ê³  ë´„
 		exit();
 	}
-	fast_transpose(b, newB); // ´Ù½Ã ÀüÄ¡ÇØ¼­
+	fast_transpose(b, newB); // ë‹¤ì‹œ ì „ì¹˜í•´ì„œ
 	a[totalA + 1].row = rowsA;
-	newB[totalB + 1].row = colsB; // °æ°è Á¶°ÇÀ» ¼³Á¤ÇØÁÜ
+	newB[totalB + 1].row = colsB; // ê²½ê³„ ì¡°ê±´ì„ ì„¤ì •í•´ì¤Œ
 	newB[totalB + 1].col = 0;
 	for (i = 1; i <= totalA; )
 	{
 		column = newB[1].row;
-		for (j = 1; j <= totalB + 1;) // ÇöÀç A Çà X B ¿­À» ¼öÇà
+		for (j = 1; j <= totalB + 1;) // í˜„ì¬ A í–‰ X B ì—´ì„ ìˆ˜í–‰
 		{
-			if (a[i].row != row) // °ö¼ÀÇÏ´ø A ÇàÀ» ¹ş¾î³ª¸é,
+			if (a[i].row != row) // ê³±ì…ˆí•˜ë˜ A í–‰ì„ ë²—ì–´ë‚˜ë©´,
 			{
 				storeSum(d, &totalD, row, column, &sum);
-				i = rowBegin; // A´Â ¿øÀ§Ä¡·Î
-				for (; newB[j].row == column; j++); // B´Â ´ÙÀ½ ¿­·Î
+				i = rowBegin; // AëŠ” ì›ìœ„ì¹˜ë¡œ
+				for (; newB[j].row == column; j++); // BëŠ” ë‹¤ìŒ ì—´ë¡œ
 				column = newB[j].row;
 			}
-			else if (newB[j].row != column) // °ö¼ÀÇÏ´ø B ¿­À» ¹ş¾î³ª¸é
+			else if (newB[j].row != column) // ê³±ì…ˆí•˜ë˜ B ì—´ì„ ë²—ì–´ë‚˜ë©´
 			{
 				storeSum(d, &totalD, row, column, &sum);
-				i = rowBegin; // A´Â ¿øÀ§Ä¡·Î
-				column = newB[j].row; // B´Â ´ÙÀ½ ¿­·Î
+				i = rowBegin; // AëŠ” ì›ìœ„ì¹˜ë¡œ
+				column = newB[j].row; // BëŠ” ë‹¤ìŒ ì—´ë¡œ
 			}
 			else switch (COMPARE(a[i].col, newB[j].col))
 			{
-				case -1: // a°¡ ÀÛÀ¸¸é AÂÊ Áõ°¡
+				case -1: // aê°€ ì‘ìœ¼ë©´ Aìª½ ì¦ê°€
 					i++;
 					break;
 				case 0:
 					sum += (a[i++].value*newB[j++].value);
 					break;
-				case 1: // b°¡ ÀÛÀ¸¸é BÂÊ Áõ°¡
+				case 1: // bê°€ ì‘ìœ¼ë©´ Bìª½ ì¦ê°€
 					j++;
 			}
 		}
@@ -213,11 +142,11 @@ void mmult(element a[], element b[], element d[])
 	d[0].value = totalD;
 }
 
-// Çà·Ä Ãâ·Â(ÀÓ½Ã)
+// í–‰ë ¬ ì¶œë ¥
 void matrix_printtemp(element x[])
 {
 	printf("=====================\n");
-	printf(" Çà\t ¿­\t  °ª\n");
+	printf(" í–‰\t ì—´\t  ê°’\n");
 	for (int i = 0; i < 9; i++)
 	{
 		printf("%2d\t %d\t %3d \n", x[i].row, x[i].col, x[i].value);
@@ -225,112 +154,18 @@ void matrix_printtemp(element x[])
 	printf("=====================\n");
 }
 
-/* void matrix_print(matrix x)
-{
-	int index = 0;
 
-	printf("=========\n");
-	for (int i = 0; i < x.rows; i++)
-	{
-		printf("  ");
-		for (int j = 0; j < x.cols; j++)
-		{
-			if (x.data[index].row == i && x.data[index].col == j) // ¹®Á¦ Á¸Àç: row°¡ col º¸´Ù ³ôÀ» ¶§ Ã³À½ ÀÔ·ÂÇÑ Çà·ÄÀÌ Á¦´ë·Î ÇÁ¸°Æ®µÇÁö ¾ÊÀ½!
-			{
-				printf("%d ", x.data[index].value);
-				index++;
-			}
-			else
-			{
-				printf("0 ");
-			}			
-		}
-		printf("\n");
-	}
-	printf("=========\n");
-}
-
-
-matrix matrix_multiply(matrix a, matrix b)
-{
-	matrix c;
-	int i = 0, j = 0, k = 0;
-	int sum_temp = 0;
-	int index = 0;
-
-	// °öÇÑ Çà·ÄÀÇ °á±£°ªÀº ¹«Á¶°Ç ¾Õ Çà·ÄÀÇ "Çà" µŞ Çà·ÄÀÇ "¿­"·Î ³ª¿Â´Ù.
-	c.rows = a.rows;
-	c.cols = b.cols;
-
-	while (i<a.rows || j<b.cols)
-	{
-		int a1 = a.data[i].row;
-		int b1 = b.data[j].row;
-		int tempi = i;
-		int tempj = j;
-		while (a.data[tempi].row == a1) 
-		{
-			tempj = j;
-			while (b.data[tempj].col == b1) 
-			{
-				if (a.data[tempi].col == b.data[tempj].row)
-				//if (a.data[tempi].col == b.data[tempj].col)
-				{
-					sum_temp += (a.data[tempi].value * b.data[tempj].value);
-				}
-				tempj++;
-			}
-			tempi++;
-		}
-		if (sum_temp != 0) 
-		{
-			c.data[k].row = a.data[i].row;
-			c.data[k].col = b.data[j].row;
-			c.data[k].value = sum_temp;
-			printf("%d\n", sum_temp);
-			c.terms++;
-			k++;
-		}
-		sum_temp = 0;
-		while (j< a.cols && a1 == a.data[j].col)
-		{
-			j++;
-		}
-		if (b1 == b.data[j].col) // a1 ³Ö¾îµµ ¹«°ü
-		{
-			while (i<b.rows && b1 == b.data[i].row) 
-			{
-				i++;
-				j = 0;
-			}
-			if (b1 == b.data[i].row) 
-			{
-				break;
-			}
-		}
-	}
-
-	return c;
-}
-*/
-
-// 
 int main()
 {
-	//matrix a = { a_el , 2, 2, 3 };
-	//a = matrix_maker();
-	printf("\n     ÀÔ·ÂÇÑ Çà·Ä\n");
+	printf("\n     ì…ë ¥í•œ í–‰ë ¬\n");
 	matrix_printtemp(a);
 
-	//matrix transpose;
 	fast_transpose(a, b);
-	printf("\n     ÀüÄ¡µÈ Çà·Ä\n");
+	printf("\n     ì „ì¹˜ëœ í–‰ë ¬\n");
 	matrix_printtemp(b);
 
-	//matrix result;
-	//result = matrix_multiply(a, transpose);
 	mmult(a, b, result);
-	printf("\n     °öÇØÁø Çà·Ä\n");
+	printf("\n     ê³±í•´ì§„ í–‰ë ¬\n");
 	matrix_printtemp(result);
 
 	return 0;
